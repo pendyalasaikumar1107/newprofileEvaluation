@@ -16,7 +16,7 @@ public class ProfileService {
 	public List<Profile> getAllProfile(){
 		return repo.findAll();
 	}
-	Long value = 100000L;
+	Long value = 10000L;
 	public String postProfile(Profile profile){
 		if (profile.getId() == null) {
 			profile.setId(++this.value);
@@ -30,4 +30,6 @@ public class ProfileService {
 			return "success";
 		}
 	}
+
+	
 }
