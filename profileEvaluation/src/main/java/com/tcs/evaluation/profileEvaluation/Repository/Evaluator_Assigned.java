@@ -1,6 +1,5 @@
 package com.tcs.evaluation.profileEvaluation.Repository;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;

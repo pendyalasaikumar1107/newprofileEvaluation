@@ -10,6 +10,7 @@ public class Profilestatus {
 	private Long id;
 	private String status;
 	private String comments;
+	
 	public Long getId() {
 		return id;
 	}
