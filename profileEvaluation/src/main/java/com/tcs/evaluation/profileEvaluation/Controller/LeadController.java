@@ -1,12 +1,23 @@
-package com.tcs.evaluation.profileEvaluation.Controller;
-
-import com.tcs.evaluation.profileEvaluation.Entity.Evaluatorassigned;
-import com.tcs.evaluation.profileEvaluation.Entity.Profile;
-import com.tcs.evaluation.profileEvaluation.Entity.Profilestatus;
+package com.tcs.evaluation.profileEvaluation.controller;
 
 import java.util.List;
-import com.tcs.evaluation.profileEvaluation.Services.LeadService;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import com.tcs.evaluation.profileEvaluation.entity.Evaluatorassigned;
+import com.tcs.evaluation.profileEvaluation.entity.Profile;
+import com.tcs.evaluation.profileEvaluation.entity.Profilestatus;
+import com.tcs.evaluation.profileEvaluation.entity.updatedProfileDetails;
+import com.tcs.evaluation.profileEvaluation.repository.Evaluator_Assigned;
+import com.tcs.evaluation.profileEvaluation.repository.ProfileRepo;
+import com.tcs.evaluation.profileEvaluation.repository.StatusRepo;
+import com.tcs.evaluation.profileEvaluation.services.LeadService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,14 +25,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tcs.evaluation.profileEvaluation.Repository.Evaluator_Assigned;
-import com.tcs.evaluation.profileEvaluation.Repository.ProfileRepo;
-import com.tcs.evaluation.profileEvaluation.Repository.StatusRepo;
-import com.tcs.evaluation.profileEvaluation.Services.LeadService;
-import com.tcs.evaluation.profileEvaluation.Services.ProfileService;
-
 @RestController
 @CrossOrigin
+@Repository
 public class LeadController {
 	
 	@Autowired
@@ -49,7 +55,7 @@ public class LeadController {
 	public int[] profileWithDate(@PathVariable String date){
 		int[] dateFilter= new int[3];
 		int hired=0; int nothired=0; int waiting=0;
-		List<Long> list= repo.findByDate(date);
+		List<Integer> list= repo.findByDate(date);
 		dateFilter[0]=list.size();
 		List<Profilestatus> listStatus= checkStatus.findAllById(list);
 		for (Profilestatus profilestatus : listStatus) {
@@ -68,7 +74,7 @@ public class LeadController {
 	public int[] profileWithMonth(@PathVariable String month){
 		int[] monthFilter= new int[4];
 		int hired=0; int nothired=0; 
-		List<Long> list= repo.findByMonth(month);
+		List<Integer> list= repo.findByMonth(month);
 		monthFilter[0]=list.size();
 		List<Profilestatus> listStatus=checkStatus.findAllById(list);
 		for (Profilestatus profilestatus : listStatus) {
@@ -85,10 +91,18 @@ public class LeadController {
 	}
 	
 	@GetMapping("/monthprofiles/{month}")
-	public List<Long> profileByWithMonth(@PathVariable String month){
+	public List<Integer> profileByWithMonth(@PathVariable String month){
 		return  repo.findByMonth(month);
 	}
 	
+	@GetMapping("/updated")
+    public List<Profile> getDbdetails() {
+		List <Profile> values = repo.findAll();
+		System.out.println(values);
+		return values;
+		
+
+	}
 }
 	
 	

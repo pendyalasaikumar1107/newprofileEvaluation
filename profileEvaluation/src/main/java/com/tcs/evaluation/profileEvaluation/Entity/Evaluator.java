@@ -1,17 +1,20 @@
-package com.tcs.evaluation.profileEvaluation.Entity;
+package com.tcs.evaluation.profileEvaluation.entity;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+@SuppressWarnings("unused")
 @Entity
 public class Evaluator {
 	@Id
-	
     private int evalid;
 	private String evalname;
 	private Long mobileno;
 	private String mail;
-	
 	
 	public int getEvalid() {
 		return evalid;

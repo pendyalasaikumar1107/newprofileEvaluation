@@ -1,4 +1,4 @@
-package com.tcs.evaluation.profileEvaluation.Entity;
+package com.tcs.evaluation.profileEvaluation.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -6,16 +6,14 @@ import javax.persistence.Id;
 @Entity
 public class Evaluatorassigned {
 	@Id
-  private long id;
+  private int id;
   private String evalname;
   private int evalid;
   
-  
-  
-public long getId() {
+public int getId() {
 	return id;
 }
-public void setId(long id) {
+public void setId(int id) {
 	this.id = id;
 }
 public String getEvalname() {

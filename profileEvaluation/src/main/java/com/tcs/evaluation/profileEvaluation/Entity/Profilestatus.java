@@ -1,5 +1,4 @@
-package com.tcs.evaluation.profileEvaluation.Entity;
-
+package com.tcs.evaluation.profileEvaluation.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,14 +6,21 @@ import javax.persistence.Id;
 @Entity
 public class Profilestatus {
 	@Id
-	private Long id;
+	private int id;
 	private String status;
 	private String comments;
+	private String evalname;
 	
-	public Long getId() {
+	public String getEvalname() {
+		return evalname;
+	}
+	public void setEvalname(String evalname) {
+		this.evalname = evalname;
+	}
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getStatus() {

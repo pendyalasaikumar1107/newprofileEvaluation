@@ -1,4 +1,4 @@
-package com.tcs.evaluation.profileEvaluation.Controller;
+package com.tcs.evaluation.profileEvaluation.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tcs.evaluation.profileEvaluation.Entity.Evaluator;
-import com.tcs.evaluation.profileEvaluation.Entity.Evaluatorassigned;
-import com.tcs.evaluation.profileEvaluation.Entity.Profile;
-import com.tcs.evaluation.profileEvaluation.Entity.Profilestatus;
-import com.tcs.evaluation.profileEvaluation.Repository.Evaluator_Assigned;
-import com.tcs.evaluation.profileEvaluation.Repository.ProfileRepo;
-import com.tcs.evaluation.profileEvaluation.Repository.StatusRepo;
-import com.tcs.evaluation.profileEvaluation.Services.EvaluatorService;
+import com.tcs.evaluation.profileEvaluation.entity.Evaluator;
+import com.tcs.evaluation.profileEvaluation.entity.Evaluatorassigned;
+import com.tcs.evaluation.profileEvaluation.entity.Profile;
+import com.tcs.evaluation.profileEvaluation.entity.Profilestatus;
+import com.tcs.evaluation.profileEvaluation.repository.Evaluator_Assigned;
+import com.tcs.evaluation.profileEvaluation.repository.ProfileRepo;
+import com.tcs.evaluation.profileEvaluation.repository.StatusRepo;
+import com.tcs.evaluation.profileEvaluation.services.EvaluatorService;
 
 @RestController
 @CrossOrigin
@@ -28,7 +28,7 @@ public class EvaluatorController {
 	@Autowired
 	Evaluator_Assigned evalAssigned;
 	@Autowired
-	ProfileRepo repo1;
+	ProfileRepo repo;
 	@Autowired
 	EvaluatorService eservice;
 	
@@ -36,15 +36,14 @@ public class EvaluatorController {
 	@GetMapping("/evaluator/{id}")
 	public List<Profile> getProfilesByEvaluatorId(@PathVariable int id) {
 	//	return eservice.assignedProfilesByEvaluatorId(id);
-		List<Long> myList1 = new ArrayList<Long>();
+		List<Integer> myList1 = new ArrayList<Integer>();
 		List<Evaluatorassigned> myList = new ArrayList<Evaluatorassigned>();
 		myList = evalAssigned.findByevalid(id);
 		for (int i = 0; i < myList.size(); i++) {
 			// if(myList.get(i).getId()==id)
 			myList1.add(myList.get(i).getId());
 		}
-		return repo1.findAllById(myList1);
-
+		return repo.findAllById(myList1);
 	}
 
 	@GetMapping("/getEvaluators")
@@ -65,7 +64,7 @@ public class EvaluatorController {
 	@PutMapping("/statusupdate")
 	public String updateprofile(@RequestBody Profilestatus status) {
 		statusrepo.save(status);
-			evalAssigned.deleteById(status.getId());
+		evalAssigned.deleteById(status.getId());
 	return "status updated"	;
 	}
 }
